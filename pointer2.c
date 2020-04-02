@@ -7,6 +7,11 @@ void q3(void);
 void q4(void);
 void q5(void);
 void q6(void);
+void q7(void);
+void q8(void);
+void q9(void);
+void q10(void);
+void q11(void);
 
 int main(void) {
     q1();
@@ -15,6 +20,11 @@ int main(void) {
     q4();
     q5();
     q6();
+    q7();
+    q8();
+    q9();
+    q10();
+    //q11();
     return 0;
 }
 
@@ -82,5 +92,67 @@ void q6(void) {
     *p2 = '\0';
     printf("q6 before %s\n", p1);
     printf("after %s\n", str2); //str2のindexは最後に行ってるので p2 は不可
+    return;
+}
+
+void q7(void) {
+    int data1[10] = {10, 15, 22, 45, 9, 66, 71, 4, 37, 82};
+    int data2[10];
+    int *p1 = data1;
+    int *p2 = data2;
+    int counter = 0;
+    for(int i=0; i<10; i++) {
+        if(*p1%2==1) {
+            *p2 = *p1;
+            p2++;
+            counter++;
+        }
+        p1++;
+    }
+    for(int j=0; j<counter; j++) {
+        printf("%d ", data2[j]);
+    }
+    printf("data2_len=> %d\n", counter);
+    return;
+}
+
+void q8(void) {
+    int a[101];
+    int *p = a;
+    *p = 0;
+    printf("%d\t", *p);
+    for(int i=0; i<101; i++) {
+        p++;
+        *p = *(p-1) + i;
+        printf("%d\t", *p);
+    }
+    printf("\n");
+    return;
+}
+
+void q9(void) {
+    char *p;
+    p = "Winter";
+    printf("%s\n", p);
+    return;
+}
+
+void q10(void) {
+    char *p1, *p2;
+    p1 = p2 = "Winter";
+    while(*p1) { // '\0' => 0 => false なのでこれでもいい
+        ++p1;
+    }
+    while(p1 > p2) {
+        --p1;
+        putchar(*p1);
+    }
+    printf("\n");
+    return;
+}
+
+void q11(void) {
+    char *p[10] = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"};
+
     return;
 }
