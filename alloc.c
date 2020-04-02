@@ -3,11 +3,13 @@
 
 void ex1(void);
 void ex2(void);
+void ex3(void);
 
 int main(void) {
     int len = 10;
     ex1();
     ex2();
+    ex3();
     return 0;
 }
 
@@ -46,5 +48,27 @@ void ex2(void) {
     heap = (int *)malloc(sizeof(int)*len);
     heap = (int *)realloc(heap, sizeof(int)*50);
     free(heap);
+    return;
+}
+
+void ex3(void) {
+    int i = 0;
+    int *arr;
+    int size = 10;
+    arr = (int *)malloc(sizeof(int) * 10);
+    printf("press int , -1=>exit");
+    do {
+        scanf("%d", &arr[i]);
+        i++;
+        if(i >= size) {
+            size += size;
+            arr = (int *)realloc(arr, sizeof(int) * size);
+        }
+    } while(arr[i-1] != -1);
+
+    for(int n=0; n<size; n++) {
+        printf("%d ", arr[n]);
+    }
+    printf("\n");
     return;
 }
