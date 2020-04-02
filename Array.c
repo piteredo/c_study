@@ -7,8 +7,8 @@ int main(void) {
     int arr_len = sizeof(arr) / sizeof(arr[0]);
     int i = 0;
 
-    printf("%d\n", sizeof(arr)); //16
-    printf("%d\n\n", sizeof(arr[0])); //4
+    printf("%d\n", sizeof(arr)); //16 => ↓ * len
+    printf("%d\n\n", sizeof(arr[0])); //4 => int型で確保するbyte数
     //よって arr_len は上記の通りとなる
 
     for(i=0; i<arr_len; i++) {
