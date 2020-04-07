@@ -1,6 +1,9 @@
 #include<stdio.h>
 #include<string.h>
 
+//この１行コメントはC++から使えるもの
+/* C 本来のコメントはこれ */
+
 //関数より上に宣言するのが通例
 struct student_tag { //構造体タグ名 => 厳密には型名ではない
     char name[50]; //初期化はできない・セミコロン（カンマではない）
@@ -23,12 +26,15 @@ void ex3_1(void);
 void ex3_2(student_b data);
 void ex4_1(void);
 void ex4_2(student_b *data);
+void ex5_1(void);
+void ex5_2(student_b *data, int len);
 
 int main(void) {
     ex1();
     ex2();
     ex3_1();
     ex4_1();
+    ex5_1();
     return 0;
 }
 
@@ -67,7 +73,6 @@ void ex3_1(void) {
     ex3_2(student);
     return;
 }
-
 void ex3_2(student_b data) {
     printf("name:%s age:%d\n", data.name, data.age);
     return;
@@ -86,9 +91,48 @@ void ex4_1(void) {
     printf("renamed:%s %d\n", p->name, p->age); //ex4_2に渡したポインタで要素値変更
     return;
 }
-
 void ex4_2(student_b *data) {
     strcpy(data->name, "BANANA");
     data->age = 44;
+    return;
+}
+
+//構造体の配列（特段新しいことはない）
+void ex5_1(void) {
+    student_b student[5];
+    student_b *pstudent;
+    int a, b, c, len;
+    pstudent = student;
+
+    student[0].age = 15; //普通にこう使う
+    student[1].age = 33;
+    printf("age: %d\n", student[0].age);
+
+    //Array(student)はインクリメントできないけど *p に入れればできる
+    //これで　pstudent[1] を指す
+    pstudent++;
+
+    //つまりこの場合 student => 配列先頭のポインタになるのでこの３つは同義になる
+    //pstudent +n で pstudent[n] に同じくアクセスできる
+    //構造体サイズ = メンバの合計ではない（+1~2バイト増えるらしい 70のはずが72になった
+    a = (*pstudent).age;
+    b = pstudent->age;
+    c = pstudent[0].age;
+    printf("3TypeOfAge:%d %d %d\n", a, b, c); //age => 33
+    pstudent--;
+
+     //pstudent / pstudent[0] ではサイズ判定できない
+     //student[0]==pstudent[0] だが、pstudent は要素数保持しないためintの4バイト、studentは４バイト×要素数になるから
+    len = sizeof(student) / sizeof(student[0]);
+    printf("%d %d %d %d\n", sizeof(student), sizeof(student[0]), sizeof(pstudent), sizeof(pstudent[0]));
+    ex5_2(pstudent, len);
+
+    return;
+    // 配列のインクリメントは
+    // X  arr + sizeof[arr[0]]
+    // ◎ arr + 1 (勝手に型のバイト分増える)
+}
+void ex5_2(student_b *data, int len) {
+    printf("%d %d\n", data[0].age, len);
     return;
 }
